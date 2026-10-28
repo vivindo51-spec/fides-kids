@@ -9,6 +9,9 @@
 <meta property="og:description" content="Педиатр, ЛОР, УЗИ новорождённым, патронаж и выезд педиатра на дом. Запись в WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ru_RU">
+<!-- OpenAI Ads pixel -->
+<script>!function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");oaiq("init",{pixelId:"EnNCA3hdr5PfduwQFtG6a6",debug:true});
+oaiq("measure","page_viewed",{type:"contents",contents:[{id:"fides-kids-landing",name:"Лендинг Fides.kids",content_type:"page"}]});</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -319,6 +322,15 @@ footer .wrap{padding-top:28px;padding-bottom:28px;display:flex;flex-direction:co
   Array.prototype.forEach.call(document.querySelectorAll('[data-pick]'), function (a) {
     a.addEventListener('click', function () { setTopic(a.getAttribute('data-pick')); });
   });
+  // Заявка: клик по кнопке WhatsApp = событие lead_created в пикселе OpenAI.
+  send.addEventListener('click', function () {
+    try {
+      if (window.oaiq) {
+        window.oaiq('measure', 'lead_created', { type: 'customer_action' }, { event_id: 'lead-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) });
+      }
+    } catch (e) {}
+  });
+
   nameEl.addEventListener('input', update);
   ageEl.addEventListener('input', update);
   document.getElementById('form').addEventListener('submit', function (e) { e.preventDefault(); send.click(); });
